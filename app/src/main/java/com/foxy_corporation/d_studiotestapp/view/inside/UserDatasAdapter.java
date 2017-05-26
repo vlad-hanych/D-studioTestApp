@@ -31,11 +31,15 @@ class UserDatasAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return new UserDatasViewHolder(v);
     }
 
-    public void setAdapterList (ArrayList<UserData> list) {
+    void setAdapterList(ArrayList<UserData> list) {
         this.mUserDatasList.clear();
         this.mUserDatasList.addAll(list);
 
         notifyDataSetChanged();
+    }
+
+    ArrayList<UserData> getAdapterList () {
+        return  mUserDatasList;
     }
 
     @Override

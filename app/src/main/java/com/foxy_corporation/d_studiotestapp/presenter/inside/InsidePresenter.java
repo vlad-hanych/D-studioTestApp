@@ -10,7 +10,7 @@ import java.util.ArrayList;
  */
 
 public interface InsidePresenter extends BasePresenter {
-    void downloadAllUsers();
+    void launchDownloadingAllUsers();
 
     void getDataFromDataBase();
 

@@ -1,75 +1,86 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
+    android:orientation="vertical">
 
     <include
         android:id="@+id/llToolbar_AER"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
         layout="@layout/toolbar"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize" />
 
-        <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cvHeader_AI"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/llToolbar_AER"
+        card_view:cardCornerRadius="4dp">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/linLayHeader_AI"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:orientation="horizontal"
+            android:layout_height="match_parent"
             android:background="@color/light_gray"
-            android:layout_below="@+id/llToolbar_AER">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:paddingBottom="5dp"
                 android:paddingLeft="10dp"
                 android:paddingTop="5dp"
-                android:textColor="@android:color/black"
-                android:textSize="17sp"
                 android:text="Username"
-                />
+                android:textColor="@android:color/black"
+                android:textSize="17sp" />
 
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_gravity="center"
+                android:layout_weight="1"
                 android:gravity="center"
                 android:paddingBottom="5dp"
                 android:paddingRight="10dp"
                 android:paddingTop="5dp"
-                android:textColor="@android:color/black"
-                android:textSize="17sp"
                 android:text="Last login"
-                />
+                android:textColor="@android:color/black"
+                android:textSize="17sp" />
 
         </LinearLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvUserDatas_AI"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/btnLogout_AI"
-        android:layout_below="@+id/linLayHeader_AI">
+    </android.support.v7.widget.CardView>
 
-    </android.support.v7.widget.RecyclerView>
+    <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/swipLSwiper_AI"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnLogout_AI"
+        android:layout_below="@+id/cvHeader_AI"
+        >
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvUserDatas_AI"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+        </android.support.v7.widget.RecyclerView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <Button
         android:id="@+id/btnLogout_AI"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/logout_button_text"
         android:layout_alignParentBottom="true"
-        android:textSize="16sp"
-        android:textColor="@android:color/white"
         android:background="@color/gray"
-        />
+        android:text="@string/logout_button_text"
+        android:textColor="@android:color/white"
+        android:textSize="16sp" />
 
 </RelativeLayout>

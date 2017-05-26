@@ -36,7 +36,6 @@
 
         <activity
             android:name=".view.inside.InsideActivity"
-            android:screenOrientation="portrait"
             >
         </activity>
 

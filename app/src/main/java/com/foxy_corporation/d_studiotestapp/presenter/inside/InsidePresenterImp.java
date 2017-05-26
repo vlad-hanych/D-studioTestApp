@@ -53,8 +53,8 @@ public class InsidePresenterImp implements InsidePresenter {
     }
 
     @Override
-    public void downloadAllUsers() {
-        mGetAllUsersCall.enqueue(new Callback<ResponseBody>() {
+    public void launchDownloadingAllUsers() {
+        mGetAllUsersCall.clone().enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (!call.isCanceled()) {
@@ -81,7 +81,6 @@ public class InsidePresenterImp implements InsidePresenter {
                             mDataBaseModel.saveUserDatas(userDatasList);
 
                         } else {
-                            /// TODO check this
                             mInsideView.setMessage(response.errorBody().string());
                         }
                     } catch (IOException e) {
