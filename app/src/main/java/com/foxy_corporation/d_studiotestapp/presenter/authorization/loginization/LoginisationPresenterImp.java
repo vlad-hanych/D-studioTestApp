@@ -23,6 +23,8 @@ import retrofit2.Response;
  */
 
 public class LoginisationPresenterImp implements LoginisationPresenter {
+    private static final String KEY_KEY = "key";
+
     private LoginizationView mLoginizationView;
 
     private LoginizationApiInterface mLoginizationApiInterface;
@@ -54,11 +56,11 @@ public class LoginisationPresenterImp implements LoginisationPresenter {
                         if (response.isSuccessful()) {
                             String responseString = response.body().string();
 
-                            Log.d("LoginisationPresenterImp...onResponse: ", responseString);
+                            /*Log.d("LoginisationPresenterImp...onResponse: ", responseString);*/
 
                             JSONObject responseJSON = new JSONObject(responseString);
 
-                            String message = responseJSON.optString("token");
+                            String message = responseJSON.optString(KEY_KEY);
 
                             if (!message.equals(Constants.EMPTY_STRING)) {
                                 mLoginizationView.setResult(true, message);

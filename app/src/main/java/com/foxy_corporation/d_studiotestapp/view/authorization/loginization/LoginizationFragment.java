@@ -88,7 +88,7 @@ public class LoginizationFragment extends Fragment implements LoginizationView {
         if (isResultSuccessful) {
             mParentActivity.setLoggedIn(resultString);
 
-            Toast.makeText(mParentActivity, getResources().getString(R.string.registration_successful) + resultString, Toast.LENGTH_SHORT).show();
+            Toast.makeText(mParentActivity, getResources().getString(R.string.loginization_successful) + resultString, Toast.LENGTH_SHORT).show();
 
             PreferencesUtils myPreferencesUtils = PreferencesUtils.getInstance(mParentActivity);
             myPreferencesUtils.setAccessToken(resultString);

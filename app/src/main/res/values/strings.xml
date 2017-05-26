@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">D-studioTestApp</string>
     <string name="registration_successful">Registration successful! Token: </string>
+    <string name="loginization_successful">Loginization successful! Token: </string>
     <string name="registration_failed">Registration error! Reason: </string>
     <string name="provide_needed_data">Please, provide needed data!</string>
     <string name="username_hint">Username</string>
