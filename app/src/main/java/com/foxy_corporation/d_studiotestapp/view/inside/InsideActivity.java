@@ -19,6 +19,7 @@ import com.foxy_corporation.d_studiotestapp.view.authorization.AuthorizationActi
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -28,10 +29,17 @@ import butterknife.OnClick;
  */
 
 public class InsideActivity extends AppCompatActivity implements InsideView {
+    private static final String LIST_DATA_KEY = "list_data";
+
+    private static final String LIST_POSITION_KEY = "list_state";
 
     private InsidePresenter mInsidePresenter = new InsidePresenterImp();
 
     private String mAccessToken;
+
+    private UserDatasAdapter mUserDatasAdapter;
+
+    @BindView(R.id.rvUserDatas_AI) RecyclerView mRVUserDatas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +51,7 @@ public class InsideActivity extends AppCompatActivity implements InsideView {
 
         mAccessToken = getIntent().getStringExtra(Constants.ACCESS_TOKEN);
 
+        setUpListMainParams();
     }
 
     @Override
@@ -64,15 +73,19 @@ public class InsideActivity extends AppCompatActivity implements InsideView {
         return mAccessToken;
     }
 
+    private void setUpListMainParams() {
+        mRVUserDatas.setLayoutManager(new LinearLayoutManager(this));
+
+        mUserDatasAdapter = new UserDatasAdapter();
+
+        mRVUserDatas.setAdapter(mUserDatasAdapter);
+    }
+
     @Override
     public void setUserDatasList(ArrayList<UserData> userDatasList) {
-        RecyclerView rvUserDatas = (RecyclerView) findViewById(R.id.rvUserDatas_AI);
 
-        rvUserDatas.setLayoutManager(new LinearLayoutManager(this));
+        mUserDatasAdapter.setAdapterList(userDatasList);
 
-        /// TODO Handle empty list case (variant)
-
-        rvUserDatas.setAdapter(new UserDatasAdapter(userDatasList));
     }
 
 

@@ -20,21 +20,22 @@ import butterknife.ButterKnife;
  */
 
 class UserDatasAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private static final String NULL_LAST_LOGIN = "null";
-
     private static final String NO_LAST_LOGIN = "No last login";
 
     private ArrayList<UserData> mUserDatasList = new ArrayList<>();
-
-    UserDatasAdapter(ArrayList<UserData> userDatasList) {
-        mUserDatasList.addAll(userDatasList);
-    }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_user_datas, parent, false);
 
         return new UserDatasViewHolder(v);
+    }
+
+    public void setAdapterList (ArrayList<UserData> list) {
+        this.mUserDatasList.clear();
+        this.mUserDatasList.addAll(list);
+
+        notifyDataSetChanged();
     }
 
     @Override
