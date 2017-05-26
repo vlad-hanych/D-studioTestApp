@@ -82,7 +82,9 @@ public class LoginisationPresenterImp implements LoginisationPresenter {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 if (!call.isCanceled()) {
-                    Log.d("LoginisationPresenterImp...onResponse: ", t.getMessage());
+                    /*Log.d("LoginisationPresenterImp...onResponse: ", t.getMessage());*/
+
+                    mLoginizationView.setMessage(t.getMessage());
                 }
             }
         });
