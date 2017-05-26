@@ -54,8 +54,6 @@ public class InsidePresenterImp implements InsidePresenter {
 
     @Override
     public void downloadAllUsers() {
-        /*Log.d("InsidePresenterImp...downloadAllUsers", "");*/
-
         mGetAllUsersCall.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -64,21 +62,19 @@ public class InsidePresenterImp implements InsidePresenter {
                         if (response.isSuccessful()) {
                             String responseString = response.body().string();
 
-                            /*Log.d("InsidePresenterImp...onResponse: ", responseString);*/
-
                             JSONArray usersJSONArray = new JSONArray(responseString);
 
-                            /*Type listType = new TypeToken<ArrayList<UserData>>() {
+                            Type listType = new TypeToken<ArrayList<UserData>>() {
                             }.getType();
-                            ArrayList<UserData> userDatasList = new Gson().fromJson(usersJSONArray.toString(), listType);*/
+                            ArrayList<UserData> userDatasList = new Gson().fromJson(usersJSONArray.toString(), listType);
 
-                            ArrayList<UserData> userDatasList = new ArrayList<>();
+                            /*ArrayList<UserData> userDatasList = new ArrayList<>();
 
                             for (int i = 0; i < usersJSONArray.length(); i++) {
                                 JSONObject iJSONObject = usersJSONArray.optJSONObject(i);
 
                                 userDatasList.add(new UserData(iJSONObject.optString(NAME_KEY), iJSONObject.optString(LAST_LOGIN_KEY)));
-                            }
+                            }*/
 
                             mInsideView.setUserDatasList(userDatasList);
 
@@ -102,7 +98,6 @@ public class InsidePresenterImp implements InsidePresenter {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 if (!call.isCanceled()) {
-                    /*Log.d("InsidePresenterImp...onFailure: ", String.valueOf(t));*/
                     mInsideView.setMessage(t.getMessage());
                 }
             }

@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.foxy_corporation.d_studiotestapp.R;
 import com.foxy_corporation.d_studiotestapp.model.data.UserData;
+import com.foxy_corporation.d_studiotestapp.utils.Constants;
 
 import java.util.ArrayList;
 
@@ -18,10 +19,14 @@ import butterknife.ButterKnife;
  * Created by Vlad on 26.05.2017.
  */
 
-public class UserDatasAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+class UserDatasAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private static final String NULL_LAST_LOGIN = "null";
+
+    private static final String NO_LAST_LOGIN = "No last login";
+
     private ArrayList<UserData> mUserDatasList = new ArrayList<>();
 
-    public UserDatasAdapter(ArrayList<UserData> userDatasList) {
+    UserDatasAdapter(ArrayList<UserData> userDatasList) {
         mUserDatasList.addAll(userDatasList);
     }
 
@@ -36,8 +41,17 @@ public class UserDatasAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         UserDatasViewHolder myUserDatasViewHolder = (UserDatasViewHolder) holder;
 
-        myUserDatasViewHolder.mUsername.setText(mUserDatasList.get(position).getUsername());
-        myUserDatasViewHolder.mLastLogin.setText(mUserDatasList.get(position).getLast_login());
+        UserData currentUserData = mUserDatasList.get(position);
+
+        myUserDatasViewHolder.mUsername.setText(currentUserData.getUsername());
+
+        String lastLogin = currentUserData.getLast_login();
+
+        if (lastLogin == null)
+            lastLogin = NO_LAST_LOGIN;
+
+        myUserDatasViewHolder.mLastLogin.setText(lastLogin);
+
     }
 
 
