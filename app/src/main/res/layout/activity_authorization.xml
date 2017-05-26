@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/framLayRootContainer_AM"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.foxy_corporation.d_studiotestapp.view.authorization.AuthorizationActivity"
+    android:orientation="vertical"
+    >
+
+    <include
+        android:id="@+id/llToolbar_AER"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        layout="@layout/toolbar"
+        />
+
+</LinearLayout>
