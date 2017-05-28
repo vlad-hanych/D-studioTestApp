@@ -29,9 +29,9 @@ import retrofit2.Response;
  */
 
 public class InsidePresenterImp implements InsidePresenter {
-    private static final String NAME_KEY = "username";
+    /*private static final String NAME_KEY = "username";
 
-    private static final String LAST_LOGIN_KEY = "last_login";
+    private static final String LAST_LOGIN_KEY = "last_login";*/
 
     private InsideView mInsideView;
 
@@ -82,6 +82,8 @@ public class InsidePresenterImp implements InsidePresenter {
 
                         } else {
                             mInsideView.setMessage(response.errorBody().string());
+                            mInsideView.setMessage(Constants.TRY_FROM_DATABASE);
+                            getDataFromDataBase();
                         }
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -98,6 +100,7 @@ public class InsidePresenterImp implements InsidePresenter {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 if (!call.isCanceled()) {
                     mInsideView.setMessage(t.getMessage());
+                    getDataFromDataBase();
                 }
             }
         });
@@ -116,6 +119,11 @@ public class InsidePresenterImp implements InsidePresenter {
     @Override
     public void setDataBaseUpdateFinished() {
         mInsideView.setMessage(Constants.DATABASE_UPDATED_SUCCESSFULLY);
+    }
+
+    @Override
+    public void setNoDataInDatabase() {
+        mInsideView.setMessage(Constants.NO_DATA_IN_DATABASE);
     }
 
     @Override

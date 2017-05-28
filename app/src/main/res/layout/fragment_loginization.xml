@@ -27,7 +27,7 @@
         android:layout_marginLeft="7dp"
         android:layout_marginRight="7dp"
         style="@style/buttons"
-        android:background="@color/colorPrimary"
+        android:background="@drawable/login_button"
         android:text="@string/login_button_text"
         />
 

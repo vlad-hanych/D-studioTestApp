@@ -15,11 +15,15 @@ public class Constants {
 
     public static final String GET_ALL_USERS_ENDPOINT = "authorization/allUsers";
 
-    public static final String ACCESS_TOKEN = "access_token";
-
     public static final String PROVIDE_NEEDED_DATA_TEXT = "Please, provide needed data!";
 
+    public static final String ACCESS_TOKEN = "access_token";
+
     public static final String DATABASE_UPDATED_SUCCESSFULLY = "Database updated successfully!";
+
+    public static final String TRY_FROM_DATABASE = "Trying to get data from database";
+
+    public static final String NO_DATA_IN_DATABASE = "There's no data in database";
 
     public static final String USERNAME_PARAM = "username";
 

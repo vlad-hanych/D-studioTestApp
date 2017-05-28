@@ -17,4 +17,6 @@ public interface InsidePresenter extends BasePresenter {
     void setDataFromDataBase(ArrayList <UserData> userDatasList);
 
     void setDataBaseUpdateFinished();
+
+    void setNoDataInDatabase();
 }

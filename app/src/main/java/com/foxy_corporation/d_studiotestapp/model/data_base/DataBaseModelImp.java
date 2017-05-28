@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import com.foxy_corporation.d_studiotestapp.model.data.UserData;
 import com.foxy_corporation.d_studiotestapp.presenter.inside.InsidePresenter;
@@ -33,6 +32,12 @@ public class DataBaseModelImp implements DataBaseModel {
 
     private static final String LAST_LOGIN_KEY = "last_login";
 
+    private static final int STATUS_GETTING_DATA_FROM_BASE_SUCCESSFUL = 1;
+
+    private static final int STATUS_GETTING_DATA_FROM_BASE_NO_DATA = 2;
+
+    private static final int STATUS_SAVING_DATA = 3;
+
     private static final String LIST_KEY = "list";
 
     private InsidePresenter mInsidePresenter;
@@ -53,7 +58,7 @@ public class DataBaseModelImp implements DataBaseModel {
 
                 db.delete(USER_DATAS_TABLE_NAME, null, null);
 
-                Message msg = handler.obtainMessage();
+                Message msg = handler.obtainMessage(STATUS_SAVING_DATA);
 
                 for (int i = 0; i < userDatasList.size(); i++) {
                     cv.put(USERNAME_KEY, userDatasList.get(i).getUsername());
@@ -71,26 +76,26 @@ public class DataBaseModelImp implements DataBaseModel {
         thread.start();
     }
 
-    Handler handler = new Handler() {
+    private Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            Bundle bundle = msg.getData();
 
-            ArrayList<UserData> arrayList = bundle.getParcelableArrayList(LIST_KEY);
+            switch (msg.what) {
+                case STATUS_SAVING_DATA:
+                    mInsidePresenter.setDataBaseUpdateFinished();
+                    break;
+                case STATUS_GETTING_DATA_FROM_BASE_SUCCESSFUL:
+                    Bundle bundle = msg.getData();
 
-            if (arrayList != null) {
-                /*Log.d("DataBaseModelImp...handleMessage...getting!", "!");*/
+                    ArrayList<UserData> arrayList = bundle.getParcelableArrayList(LIST_KEY);
 
-                /*for (int i = 0; i < arrayList.size(); i++) {
-                    Log.d(i + " bebebe," + arrayList.get(i).getUsername(), arrayList.get(i).getUsername());
-                }*/
+                    mInsidePresenter.setDataFromDataBase(arrayList);
 
-                mInsidePresenter.setDataFromDataBase(arrayList);
-            }
-            else {
-                /*Log.d("DataBaseModelImp...handleMessage...saving!", "!");*/
-
-                mInsidePresenter.setDataBaseUpdateFinished();
+                    mInsidePresenter.setDataBaseUpdateFinished();
+                    break;
+                case STATUS_GETTING_DATA_FROM_BASE_NO_DATA:
+                    mInsidePresenter.setNoDataInDatabase();
+                    break;
             }
         }
     };
@@ -104,9 +109,9 @@ public class DataBaseModelImp implements DataBaseModel {
 
                 SQLiteDatabase db = dbHelper.getReadableDatabase();
 
-                Message msg = handler.obtainMessage();
-
                 ArrayList<UserData> usersList = new ArrayList<>();
+
+                Message msg;
 
                 Cursor c = db.query(USER_DATAS_TABLE_NAME, null, null, null, null, null, null);
 
@@ -121,14 +126,17 @@ public class DataBaseModelImp implements DataBaseModel {
                         usersList.add(new UserData(c.getString(nameColIndex), c.getString(lastLoginColIndex)));
 
                     } while (c.moveToNext());
+
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelableArrayList(LIST_KEY, usersList);
+
+                    msg = handler.obtainMessage(STATUS_GETTING_DATA_FROM_BASE_SUCCESSFUL);
+                    msg.setData(bundle);
+
                 } else
-                    Log.d("TAG", "0 rows");
+                    msg = handler.obtainMessage(STATUS_GETTING_DATA_FROM_BASE_NO_DATA);
 
                 c.close();
-
-                Bundle bundle = new Bundle();
-                bundle.putParcelableArrayList(LIST_KEY, usersList);
-                msg.setData(bundle);
 
                 dbHelper.close();
 
